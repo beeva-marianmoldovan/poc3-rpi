@@ -1,0 +1,23 @@
+{
+  "name": "poc3-rpi",
+  "version": "1.0.0",
+  "description": "RPI gateway for sensortag",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beeva-marianmoldovan/poc3-rpi.git"
+  },
+  "author": "Marian C Moldovan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beeva-marianmoldovan/poc3-rpi/issues"
+  },
+  "homepage": "https://github.com/beeva-marianmoldovan/poc3-rpi",
+  "dependencies": {
+    "async": "^1.4.2",
+    "sensortag": "^1.1.0"
+  }
+}
