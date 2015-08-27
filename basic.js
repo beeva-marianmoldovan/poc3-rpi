@@ -2,28 +2,13 @@ var SensorTag = require('sensortag');
 var async = require('async');
 var _ = require('lodash');
 
-var pool = ['b0:b4:48:b8:55:86', 'b0:b4:48:b8:6b:06'];
-var programNext = _.debounce(discoverNextDevice, 3000);
-
-function discoverNextDevice(){
-	if(pool.length < 1){
-    		process.exit(1);
-    }
-	SensorTag.discoverByAddress(pool[0], onDiscover);
-	console.log('discovering', pool[0]);
-	pool.splice(0, 1);
-	programNext();
-}
 
 function onDiscover(sensorTag) {
-	programNext.cancel();
 	console.log('Yo sensorTag: ' + sensorTag.address);
 
 	sensorTag.on('disconnect', function() {
 		console.log('disconnected!');
-		if(pool.length > 0){
-			discoverNextDevice();
-		}
+		SensorTag.discover(onDiscover);
 	});
 
 	async.series([
@@ -112,12 +97,8 @@ function onDiscover(sensorTag) {
     		_.merge(data, element);
     	});
     	console.log(data);
-
-    	if(pool.length < 1)
-    		process.exit(1);
     }
   );
 }
 
-
-discoverNextDevice();
+SensorTag.discover(onDiscover);
